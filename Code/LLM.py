@@ -1,14 +1,16 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama.llms import OllamaLLM
 
-template = """Give me a list of key facts about this paper {paper}"""
 
-prompt = ChatPromptTemplate.from_template(template)
+def summarize():
+    template = """Give me a list of key facts about this paper {paper}"""
 
-model = OllamaLLM(model="llama3.2")
+    prompt = ChatPromptTemplate.from_template(template)
 
-retrieved_documents = retriever.invoke(template)
+    model = OllamaLLM(model="llama3.2")
 
-chain = prompt | model
+    retrieved_documents = retriever.invoke(template)
 
-print(chain.invoke({"paper": retrieved_documents}))
+    chain = prompt | model
+
+    print(chain.invoke({"paper": retrieved_documents}))

@@ -1,6 +1,7 @@
 import requests
 import xml.etree.ElementTree as ET
 
+#gets paper metadata from api enpoints
 def search_arxiv(topic, max_results=1):
     base_url = "http://export.arxiv.org/api/query?"
     query = f"search_query=all:{topic}&start=0&max_results={max_results}"
@@ -11,6 +12,7 @@ def search_arxiv(topic, max_results=1):
         root = ET.fromstring(response.text)
         papers = []
 
+        #said api endpoints
         for entry in root.findall("{http://www.w3.org/2005/Atom}entry"):
             title = entry.find("{http://www.w3.org/2005/Atom}title").text
             link = entry.find("{http://www.w3.org/2005/Atom}id").text
@@ -23,6 +25,7 @@ def search_arxiv(topic, max_results=1):
         print(f"Error {response.status_code}: {response.text}")
         return []
 
+#gets link to pdf from id
 def get_arxiv_pdf_url(arxiv_link):
     """Convert an arXiv paper link to its direct PDF URL."""
     arxiv_id = arxiv_link.split("/")[-1]  # Extract the arXiv ID (last part of the URL)
