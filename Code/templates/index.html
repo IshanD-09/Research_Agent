@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Research Agent 📚</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9f9f9;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .results {
+            text-align: left;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Search for Research Papers 📚</h2>
+        <input type="text" id="searchInput" placeholder="Enter a topic..."/>
+        <button onclick="searchPapers()">Search</button>
+        <div class="results" id="resultsContainer"></div>
+    </div>
+
+    <script>
+        async function searchPapers() {
+            const query = document.getElementById('searchInput').value;
+            var html = "";
+            if (!query) return alert("Please enter a topic!");
+
+            document.getElementById('resultsContainer').innerHTML = "<p>Loading...</p>";
+
+            try {
+                const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
+                const res = await response.json();
+                console.log(res)
+                const info = res.info;
+                const paper = res.paper;
+
+                console.log(info);
+                console.log(paper);
+                html += `<p><b>${paper.title}</b> - <a href="${paper.link}" target="_blank">Read Paper</a></p>`;
+                html += `<p><b>${info.title}</b> ${info.summary}</p>`;
+
+                document.getElementById('resultsContainer').innerHTML = html;
+            } catch (error) {
+                console.log(error);
+                document.getElementById('resultsContainer').innerHTML = "<p>Error fetching papers</p>";
+            }
+        }
+    </script>
+
+</body>
+</html>
