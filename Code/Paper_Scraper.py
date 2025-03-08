@@ -1,6 +1,5 @@
 import os
 import requests
-import Paper_Agent
 from PyPDF2 import PdfReader
 
 
@@ -26,7 +25,3 @@ def scrape_paper(paper_url: str, mock: bool = True):
 #       text += page.extract_text()
 #     return text
 
-papers = Paper_Agent.search_arxiv(input("Topic: "))
-paper_link = Paper_Agent.get_arxiv_pdf_url(papers[0]['link'])
-text = scrape_paper(paper_link, mock=False)
-print(text)
