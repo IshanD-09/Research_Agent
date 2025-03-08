@@ -1,7 +1,7 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama.llms import OllamaLLM
 
-
+global template
 def summarize(retrieved_documents):
     template = """Consolidate the key information and findings of this paper in 10-11 bullet points: {paper}"""
 
