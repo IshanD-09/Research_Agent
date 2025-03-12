@@ -8,9 +8,10 @@ This project was also used for Science Fair.
 ## Requirements
 In addition to the requirements.txt, you'll need some more things:
 
-1. Ollama. You'll need to install ollama and pull the models: llama3.2 and nomic-text-embeds. When you want to use the code, run ollama serve in a terminal window. I'm currently using Ollama 0.5.12, not sure if that will make a difference.
-2. Best performance. Keep your computer on best performance because your computer needs to be able to use your hardware to its full extent. Embarrassingly, it took me a while to understand that this was a problem for me.
-3. Hardware. I'm using a Snapdragon X-11 Elite and it's running quite smoothly. I would recommend a gpu if you'd like to use a larger model.
+1. Update file path. In the RAG.py file, you'll need to change the file path for the Chroma vector db relative to your computer.
+2. Ollama. You'll need to install ollama and pull the models: llama3.2 and nomic-text-embeds. When you want to use the code, run ollama serve in a terminal window. I'm currently using Ollama 0.5.12, not sure if that will make a difference.
+3. Best performance. Keep your computer on best performance because your computer needs to be able to use your hardware to its full extent. Embarrassingly, it took me a while to understand that this was a problem for me.
+4. Hardware. I'm using a Snapdragon X-11 Elite and it's running quite smoothly. I would recommend a gpu if you'd like to use a larger model.
 
 ## Conclusion
 When you want to run the code, just run the app.py file and have ollama serve running in the background
