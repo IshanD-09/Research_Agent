@@ -41,10 +41,13 @@ def search_papers():
     texts = RAG.text_splitter.split_text(text)
     uuids = [str(uuid4()) for _ in range(len(texts))]
     RAG.vector_store.add_texts(texts=texts, ids=uuids)
-
+    
+    retriveDocs = RAG.vector_store.similarity_search_by_vector(embedding=RAG.embeddings.embed_query(request.args.get('query')), k=4)
+    # print("retriveDocs-->", retriveDocs)
+    # print("retriveDocs-->", retriveDocs[0].page_content)    
     if papers[0]['pdf_link']:
         info = [
-            {"title": "Summary: ",  "summary": LLM.summarize(RAG.vector_store.similarity_search_by_vector(embedding=RAG.embeddings.embed_query(request.args.get('query')), k=4))}
+            {"title": "Summary: ",  "summary": LLM.summarize(retriveDocs[0].page_content)}
         ]
     else:
         info = [

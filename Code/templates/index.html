@@ -11,7 +11,7 @@
             text-align: center;
         }
         .container {
-            max-width: 600px;
+            max-width: 90%;
             margin: 50px auto;
             background: white;
             padding: 20px;
@@ -29,18 +29,29 @@
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <h2>Search for Research Papers 📚</h2>
-        <input type="text" id="searchInput" placeholder="Enter a topic..."/>
-        <button onclick="searchPapers()">Search</button>
-        <div class="results" id="resultsContainer"></div>
+    <div style="height: 200px; width: 100%; color: #e8e0e0; font-size: xx-large; background-color: #000;">
+        <br>2025 Science and Engineering Fair of Metro Detroit 
+        
+        
+        <p style="font-size: x-large;">Evolution of Agentic AI : Research Agent </p>
+    
+        <div style=" font-size: medium; text-align: right; align-items: flex-end;  padding-right: 20px;">
+            
+            Project By: Ishan Dhilde 
+            <br>International Academy East, Troy, MI
+        </div>
     </div>
+        <div class="container" style="height: auto; width: 90%;">
+            <h2>Enter a Research Question/Topic: 📚</h2>
+            <p>(Don't be too vague or specific)</p>
+            <input type="text" id="searchInput" placeholder="Enter a topic..."/>
+            <button onclick="searchPapers()">Search</button>
+            <div class="results" id="resultsContainer"></div>
+        </div>
 
     <script>
         async function searchPapers() {
             const query = document.getElementById('searchInput').value;
-            var html = "";
             if (!query) return alert("Please enter a topic!");
 
             document.getElementById('resultsContainer').innerHTML = "<p>Loading...</p>";
@@ -48,14 +59,19 @@
             try {
                 const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
                 const res = await response.json();
-                console.log(res)
+                console.log(res);
+
                 const info = res.info;
                 const paper = res.paper;
 
                 console.log(info);
                 console.log(paper);
-                html += `<p><b>${paper.title}</b> - <a href="${paper.link}" target="_blank">Read Paper</a></p>`;
-                html += `<p><b>${info.title}</b> ${info.summary}</p>`;
+
+                // Create HTML for the paper title and link
+                let html = `<p><b>${paper.title}</b> - <a href="${paper.link}" target="_blank">Read Paper</a></p>`;
+
+                // Append the formatted summary
+                html += formatSummary(info.title, info.summary);
 
                 document.getElementById('resultsContainer').innerHTML = html;
             } catch (error) {
@@ -63,7 +79,21 @@
                 document.getElementById('resultsContainer').innerHTML = "<p>Error fetching papers</p>";
             }
         }
+
+        function formatSummary(title, summaryText) {
+            // Split summary text using bullet (•) and clean up
+            let points = summaryText.split("•").map(point => point.trim()).filter(point => point);
+
+            // Create HTML structure
+            let html = `<h3>${title}</h3><ul>`;
+            points.forEach(point => {
+                html += `<li>${point}</li>`;
+            });
+            html += `</ul>`;
+
+            return html;
+        }
     </script>
 
 </body>
-</html>
+</html> 
